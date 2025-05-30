@@ -150,7 +150,8 @@ function loadRadarOverlay() {
   if (radarOverlay) map.removeLayer(radarOverlay);
 
   // Use proxy to avoid CORS
-  const url = `/radar/${siteId}/${product}/${frame}`;
+  const url = `https://nexrad-viewer.onrender.com/${siteId}/${product}/${frame}`;
+
 
   // Calculate bounds (approx 230km range)
   const site = NEXRAD_SITES.find(s => s.id === siteId);
