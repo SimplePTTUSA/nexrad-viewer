@@ -3,6 +3,12 @@ const fetch = require('node-fetch');
 const path = require('path');
 const app = express();
 
+// Add CORS headers to all responses to allow cross-origin requests
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/radar/:site/:product/:frame', async (req, res) => {
