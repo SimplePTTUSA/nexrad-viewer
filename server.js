@@ -1,14 +1,11 @@
 const express = require('express');
 const fetch = require('node-fetch');
+const cors = require('cors');
 const path = require('path');
 const app = express();
 
-// Add CORS headers to all responses to allow cross-origin requests
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
-
+// Enable CORS for all routes
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/radar/:site/:product/:frame', async (req, res) => {
@@ -16,11 +13,18 @@ app.get('/radar/:site/:product/:frame', async (req, res) => {
   const url = `https://radar.weather.gov/ridge/RadarImg/${product}/${site}_${product}_${frame}.png`;
   try {
     const response = await fetch(url);
-    if (!response.ok) return res.status(404).send('Not found');
+    if (!response.ok) {
+      res.set('Access-Control-Allow-Origin', '*');
+      res.set('Content-Type', 'image/png');
+      return res.status(404).end();
+    }
+    res.set('Access-Control-Allow-Origin', '*');
     res.set('Content-Type', 'image/png');
     response.body.pipe(res);
   } catch (err) {
-    res.status(500).send('Proxy fetch error');
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Content-Type', 'image/png');
+    res.status(500).end();
   }
 });
 
