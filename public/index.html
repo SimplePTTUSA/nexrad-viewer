@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NEXRAD Radar Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+  <div class="controls">
+    <label>Radar Site:
+      <select id="siteSelect"></select>
+    </label>
+    <label>Product:
+      <select id="productSelect">
+        <option value="N0Q">Base Reflectivity (N0Q)</option>
+        <option value="NCR">Composite Reflectivity (NCR)</option>
+        <option value="N0U">Base Velocity (N0U)</option>
+        <option value="N0S">Storm Relative Motion (N0S)</option>
+        <option value="NET">Echo Tops (NET)</option>
+        <option value="NVL">Vertically Integrated Liquid (NVL)</option>
+        <option value="N1P">1-Hour Precip (N1P)</option>
+        <option value="NTP">Storm Total Precip (NTP)</option>
+      </select>
+    </label>
+    <button id="loadRadar">Load Radar</button>
+  </div>
+  <div id="map"></div>
+  <script src="app.js"></script>
+</body>
+</html>
